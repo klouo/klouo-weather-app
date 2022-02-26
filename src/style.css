@@ -1,0 +1,59 @@
+li {
+    list-style: none;
+  }
+footer {
+    text-align: center;
+    font-size: 10px;
+  }
+.container {
+    padding: 20px;
+    margin: 80px auto;
+    border: 2px solid #dadde1;
+    max-width: 700px;
+    border-radius: 5px;
+  }
+.current-location {
+    text-align: center;
+  }
+.current-weather-icon {
+    padding: 15px;
+    margin-left: 20px;
+    font-size: 64px;
+  }
+.current-conditions {
+    text-align: left;
+  } 
+  .line-break {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 1px;
+    width: 100%;
+    border-top: 1px solid gray;
+  }
+.card {
+    text-align: center;
+    border: none;
+  }
+  .temperature {
+    font-size: 50px;
+    font-weight: 500;
+  }
+.units {
+    font-size: 16px;
+    position: relative;
+    top: -23px;
+    margin-left: -16px;
+  }
+.units .active {
+    color: rgb(33, 33, 33);
+  cursor: default;
+  }
+.units .active:hover {
+  text-decoration: none;
+}
+.last-updated {
+  padding: 32px;
+}
+.current-low, .current-high {
+  padding: 38px;
+}
