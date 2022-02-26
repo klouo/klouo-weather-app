@@ -1,13 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <link ref="stylesheet" href="style.css"/>
+
+<meta charset="UTF-8" />
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+crossorigin="anonymous"/>
+<link rel="stylesheet" href="src/styles.css" />
+<title>Klouo's Weather App</title>
 </head>
 <body>
-<h1>hello world</h1>
+<div class="container">
+<div class="weather-app">
+<form class="search-form" id="search-form">
+<button class="btn btn-outline-secondary" type="button" id="current-location-button">📍</button>
+<input
+type="search"
+id="city-input"
+class="col-10 formControl"
+placeholder="What's your Location?"
+autofocus="on"
+aria-label="Example text with button addon"
+aria-describedby="button-addon2"
+/>
+<button class="btn btn-outline-secondary" type="submit" id="button-addon2">Go</button>
+</form>
+</div>
+<div class="row">
+<div class="col-12 current-location">
+</br>
+<h1 id="city">Nelson</h1></div>
+<div class="col-3 current-weather-icon">
+<h2>⛅</h2><br/>L: 18℃</br>Sunrise: 6:09am
+</div>
+<div class="col-4 current-degrees">
+<h2><span class="temperature" id="temperature">18</span>
+<span class="units"><a href="#" id="celsius-link">℃</a> | <a href="#" id="fahrenheit-link">°F</a></span></h2>
+<br />H: 24℃</br>Sunset: 8:05pm
+</div>
+<div class="col-5 current-conditions">
+<ul>
+</br>
+<li id="date"></li>
+<li id="weather-type"></li>
+<li>Humidity: <span id="humidity"></span>%</li>
+<li>Wind: <span id="wind"></span> km/h</li>
+</ul>
+</div>
+</div>
+</br>
+<div class="line-break">
+</div>
+<p>Next 5 days;</br>
+<div class="row row-cols-5">
+<div class="col">
+<div class="card">
+<div class="card-body">
+<h5 class="card-title ahead-day">Tue</h5>
+<p class="ahead-icon">🌦</p>
+<p class="card-text ahead-low">17℃</p>
+<p class="card-text ahead-high"><strong>23℃</strong></p>
+</div>
+</div>
+</div>
+<div class="col">
+<div class="card">
+<div class="card-body">
+<h5 class="card-title ahead-day">Wed</h5>
+<p class="ahead-icon">🌤</p>
+<p class="card-text ahead-low">18℃</p>
+<p class="card-text ahead-high"><strong>30℃</strong></p>
+</div>
+</div>
+</div>
+<div class="col">
+<div class="card">
+<div class="card-body">
+<h5 class="card-title ahead-day">Thu</h5>
+<p class="ahead-icon">🌤</p>
+<p class="card-text ahead-low">19℃</p>
+<p class="card-text ahead-high"><strong>29℃</strong></p>
+</div>
+</div>
+</div>
+<div class="col">
+<div class="card">
+<div class="card-body">
+<h5 class="card-title ahead-day">Fri</h5>
+<p class="ahead-icon">🌦</p>
+<p class="card-text ahead-low">19℃</p>
+<p class="card-text ahead-high"><strong>28℃</strong></p>
+</div>
+</div>
+</div>
+<div class="col">
+<div class="card">
+<div class="card-body">
+<h5 class="card-title ahead-day">Sat</h5>
+<p class="ahead-icon">⚡</p>
+<p class="card-text ahead-low">14℃</p>
+<p class="card-text ahead-high"><strong>20℃</strong></p>
+</div>
+</div>
+</div>
+</div>
+<script src="src/index.js"></script>
 </body>
 </html>
