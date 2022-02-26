@@ -4,31 +4,35 @@
     border-style: solid;
     max-width: 700px;
   }
-  .current-location {
+.current-location {
     text-align: center;
   }
-  .current-weather-icon {
+.current-weather-icon {
     text-align: right;
     padding: 10px;
   }
-  .current-degrees {
+.current-degrees {
     text-align: left;
     padding: 10px;
   }
-  .current-conditions {
+.current-conditions {
     text-align: left;
   }
-  li {
+li {
     list-style: none;
   }
-  .line-break {
+.line-break {
     margin-top: 5px;
     margin-bottom: 5px;
     height: 1px;
     width: 100%;
     border-top: 1px solid gray;
   }
-  .card {
+.card {
     text-align: center;
+  }
+footer {
+    text-align: center;
+    font-size: 10px;
   }
   
