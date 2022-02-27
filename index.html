@@ -38,18 +38,18 @@ autofocus="on"
 <div class="col-4 current-conditions">
 <ul>
 </br>
-<li id="weather-type"></li>
+<strong><li id="weather-type"></li></strong>
 <li><strong>Humidity: </strong><span id="humidity"></span>%</li>
 <li><strong>Wind: </strong><span id="wind"></span> km/h</li>
-<li><span class="sunrise-sunset"><strong>Sunrise: </strong>6:09am</li>
-    <li><strong>Sunset: </strong>8:05pm</span></li>
 </ul>
 </div>
 </div>
 <div class="row">
     <div class="col-6">
-    <span class="current-low"><strong>L: </strong>18℃</span>
-    <span class="current-high"><strong>H: </strong>24℃</span>
+    <ul id="current-highlow">
+<li><strong>L: </strong><span id="current-low"></span>℃</li>
+<li><strong>H: </strong><span id="current-high"></span>℃</li>
+    </ul>
     </div>
     <div class="col-6">
 <small class="last-updated"><strong>Last Updated: </strong><span id="date"></small>
@@ -59,7 +59,7 @@ autofocus="on"
 <div class="line-break">
 </div>
 </br>
-<p>Next 5 days;</p></br>
+<p><strong>Next 5 days;</p></strong></br>
 <div class="row row-cols-5">
 <div class="col">
 <div class="card">

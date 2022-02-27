@@ -42,6 +42,12 @@ function showWeather(response) {
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed
   );
+  document.querySelector("#current-low").innerHTML = Math.round(
+    response.data.main.temp_min
+  );
+  document.querySelector("#current-high").innerHTML = Math.round(
+    response.data.main.temp_max
+  );
 }
 
 function locationSearch(event) {

@@ -22,6 +22,7 @@ footer {
   }
 .current-conditions {
     text-align: left;
+    line-height: 2em;
   } 
   .line-break {
     margin-top: 5px;
@@ -35,7 +36,7 @@ footer {
     border: none;
   }
   .temperature {
-    font-size: 50px;
+    font-size: 56px;
     font-weight: 500;
   }
 .units {
@@ -44,16 +45,16 @@ footer {
     top: -23px;
     margin-left: -16px;
   }
-.units .active {
-    color: rgb(33, 33, 33);
-  cursor: default;
-  }
-.units .active:hover {
-  text-decoration: none;
-}
 .last-updated {
   padding: 32px;
 }
-.current-low, .current-high {
-  padding: 38px;
+a:link { text-decoration: none;
+color: black; }
+#weather-type {
+  text-transform: capitalize;
+}
+#current-highlow li {
+  display: inline;
+  padding-right: 48px;
+  padding-left: 26px;
 }
