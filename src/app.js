@@ -1,4 +1,3 @@
-//Update to users current day & time
 function formatDate(timestamp) {
 let date = new Date(timestamp);
 let hours = date.getHours();
@@ -22,14 +21,11 @@ let day = days[date.getDay()];
 return `${day} ${hours}:${minutes}`;
 }
 
-let dateElement = document.querySelector("#date");
-
-//Update city from search & GO with Temperature
 function showWeather(response) {
   console.log(response);
   document.querySelector("#city").innerHTML = response.data.name;
   document.querySelector("#temperature").innerHTML = Math.round(
-    response.data.main.temp
+    celsiusTemperature
   );
   document.querySelector("#weather-type").innerHTML =
     response.data.weather[0].description;
@@ -45,6 +41,8 @@ function showWeather(response) {
   );
   dateElement.innerHTML = formatDate(response.data.dt * 1000);
   iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  celsiusTemperature = response.data.main.temp;
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
 function searchCity(cityInput) {
@@ -61,11 +59,6 @@ function locationSearch(event) {
   searchCity(cityInput);
 }
 
-let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", locationSearch);
-let iconElement = document.querySelector("#icon");
-
-//Update City from current location button with Temperature
 function updateWeather(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
@@ -73,7 +66,6 @@ function updateWeather(position) {
   let apiKey = "f8f0c9241ff771e67ddebb64996017c7";
   let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather";
   let apiUrl = `${apiEndpoint}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
-  
   axios.get(apiUrl).then(showWeather);
 }
 
@@ -82,29 +74,35 @@ function retrievePosition(event) {
   navigator.geolocation.getCurrentPosition(updateWeather);
 }
 
-let currentLocation = document.querySelector("#current-location-button");
-currentLocation.addEventListener("click", retrievePosition);
-
-//Temperature Conversion Element
 function convertToFahrenheit(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temperature");
-  let temperature = temperatureElement.innerHTML;
-  temperature = Number(temperature);
-  temperatureElement.innerHTML = Math.round((temperature * 9) / 5 + 32);
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
 
-function convertToCelsius(event) {
+function displayCelsius(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temperature");
-  let temperature = temperatureElement.innerHTML;
-  temperature = Number(temperature);
-  temperatureElement.innerHTML = Math.round(((temperature - 32) * 5) / 9);
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
+
+let celsiusTemperature = null;
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", convertToFahrenheit);
 let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", convertToCelsius);
+celsiusLink.addEventListener("click", displayCelsius);
+let currentLocation = document.querySelector("#current-location-button");
+currentLocation.addEventListener("click", retrievePosition);
+let searchForm = document.querySelector("#search-form");
+searchForm.addEventListener("submit", locationSearch);
+let iconElement = document.querySelector("#icon");
+let temperatureElement = document.querySelector("#temperature");
+let dateElement = document.querySelector("#date");
 
 searchCity("Queenstown");

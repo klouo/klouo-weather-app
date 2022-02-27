@@ -38,18 +38,26 @@ footer {
   .temperature {
     font-size: 56px;
     font-weight: 500;
+    color: black;
+  }
+  .temperature, .active { 
+    cursor: default;
+    color: black;
+    text-decoration: none;
+    }
+  .temperature, .active:hover {
+    text-decoration: none;
   }
 .units {
     font-size: 16px;
     position: relative;
     top: -23px;
     margin-left: -16px;
+    text-decoration: none;
   }
 .last-updated {
   padding: 32px;
 }
-a:link { text-decoration: none;
-color: black; }
 #weather-type {
   text-transform: capitalize;
 }
