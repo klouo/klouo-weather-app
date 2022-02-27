@@ -21,6 +21,34 @@ let day = days[date.getDay()];
 return `${day} ${hours}:${minutes}`;
 }
 
+function displayForecast(){
+  let forecastElement = document.querySelector("#forecast");
+  let days = ["Thu", "Fri", "Sat", "Sun"];
+
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+  forecastHTML = forecastHTML + 
+  `
+  <div class="col-2">
+    <strong><div class="ahead-day">${day}</div></strong>
+    <img
+      src="http://openweathermap.org/img/wn/50d@2x.png"
+      alt=""
+      width="42"
+    />
+    <div class="weather-forecast-temperatures">
+      <span class="ahead-low"> 12° </span>
+      <span class="ahead-high"> 17° </span>
+    </div>
+  </div>
+`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML; 
+  console.log(forecastHTML);
+}
+
 function showWeather(response) {
   console.log(response);
   document.querySelector("#city").innerHTML = response.data.name;
@@ -106,3 +134,4 @@ let temperatureElement = document.querySelector("#temperature");
 let dateElement = document.querySelector("#date");
 
 searchCity("Queenstown");
+displayForecast();
