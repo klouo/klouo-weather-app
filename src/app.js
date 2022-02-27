@@ -1,33 +1,28 @@
-//Update current day & time
-function formatDate(date) {
-  let hours = date.getHours();
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-  let minutes = date.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-
-  let dayIndex = date.getDay();
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
-  let day = days[dayIndex];
-
-  return `${day} ${hours}:${minutes}`;
+//Update to users current day & time
+function formatDate(timestamp) {
+let date = new Date(timestamp);
+let hours = date.getHours();
+if (hours < 10) {
+  hours = `0${hours}`;
+}
+let minutes = date.getMinutes();
+if (minutes < 10) {
+  minutes = `0${minutes}`;
+}
+let days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday"
+];
+let day = days[date.getDay()];
+return `${day} ${hours}:${minutes}`;
 }
 
 let dateElement = document.querySelector("#date");
-let currentTime = new Date();
-
-dateElement.innerHTML = formatDate(currentTime);
 
 //Update city from search & GO with Temperature
 function showWeather(response) {
@@ -48,16 +43,21 @@ function showWeather(response) {
   document.querySelector("#current-high").innerHTML = Math.round(
     response.data.main.temp_max
   );
+  dateElement.innerHTML = formatDate(response.data.dt * 1000);
+}
+
+function searchCity(cityInput) {
+let units = "metric";
+let apiKey = "f8f0c9241ff771e67ddebb64996017c7";
+let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather";
+let apiUrl = `${apiEndpoint}?q=${cityInput}&appid=${apiKey}&units=${units}`;
+axios.get(apiUrl).then(showWeather);
 }
 
 function locationSearch(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#city-input").value;
-  let units = "metric";
-  let apiKey = "f8f0c9241ff771e67ddebb64996017c7";
-  let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather";
-  let apiUrl = `${apiEndpoint}?q=${cityInput}&appid=${apiKey}&units=${units}`;
-  axios.get(apiUrl).then(showWeather);
+  searchCity(cityInput);
 }
 
 let searchForm = document.querySelector("#search-form");
@@ -104,3 +104,5 @@ let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", convertToFahrenheit);
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", convertToCelsius);
+
+searchCity("Queenstown");
