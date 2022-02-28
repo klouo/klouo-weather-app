@@ -21,28 +21,38 @@ let day = days[date.getDay()];
 return `${day} ${hours}:${minutes}`;
 }
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-  let days = ["Thu", "Fri", "Sat", "Sun"];
 
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
+  forecast.forEach(function (forecastDay, index) 
+   {
+    if (index < 6) {
   forecastHTML = forecastHTML + 
   `
   <div class="col-2">
-    <strong><div class="ahead-day">${day}</div></strong>
+    <strong><div class="ahead-day">${formatDay(forecastDay.dt)}</div></strong>
     <img
-      src="http://openweathermap.org/img/wn/50d@2x.png"
+      src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
       alt=""
-      width="42"
+      width="50"
     />
     <div class="weather-forecast-temperatures">
-      <span class="ahead-low"> 12° </span>
-      <span class="ahead-high"> 17° </span>
+      <span class="ahead-low">${Math.round(forecastDay.temp.min)}°</span>
+      <span class="ahead-high">${Math.round(forecastDay.temp.max)}° </span>
     </div>
   </div>
 `;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
@@ -54,6 +64,33 @@ function getForecast(coordinates) {
   console.log(coordinates);
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(displayForecast);
+}
+
+function sunriseTime(response) {
+  let sunriseElement = document.querySelector("#sunrise");
+  let sunriseTime = new Date(response.data.sys.sunrise * 1000);
+  let sunriseHour = sunriseTime.getHours();
+  let sunriseMinute = sunriseTime.getMinutes();
+  if (sunriseMinute < 10) {
+    sunriseMinute = `0${sunriseMinute}`;
+  }
+  if (sunriseHour < 10) {
+    sunriseHour = `0${sunriseHour}`;
+  }
+  sunriseElement.innerHTML = `<strong>Sunrise: </strong>${sunriseHour}:${sunriseMinute}am`;
+}
+function sunsetTime(response) {
+  let sunsetElement = document.querySelector("#sunset");
+  let sunsetTime = new Date(response.data.sys.sunset * 1000);
+  let sunsetHour = sunsetTime.getHours();
+  let sunsetMinute = sunsetTime.getMinutes();
+  if (sunsetMinute < 10) {
+    sunsetMinute = `0${sunsetMinute}`;
+  }
+  if (sunsetHour < 10) {
+    sunsetHour = `0${sunsetHour}`;
+  }
+  sunsetElement.innerHTML = `<strong>Sunset: </strong>${sunsetHour}:${sunsetMinute}pm`;
 }
 
 function showWeather(response) {
@@ -68,12 +105,7 @@ function showWeather(response) {
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed
   );
-  document.querySelector("#current-low").innerHTML = Math.round(
-    response.data.main.temp_min
-  );
-  document.querySelector("#current-high").innerHTML = Math.round(
-    response.data.main.temp_max
-  );
+ 
   dateElement.innerHTML = formatDate(response.data.dt * 1000);
   iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   celsiusTemperature = response.data.main.temp;
@@ -85,11 +117,15 @@ function searchCity(cityInput) {
 let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather";
 let apiUrl = `${apiEndpoint}?q=${cityInput}&appid=${apiKey}&units=${units}`;
 axios.get(apiUrl).then(showWeather);
+axios.get(apiUrl).then(sunriseTime);
+axios.get(apiUrl).then(sunsetTime);
 }
 
 function showLocation(position) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(showWeather);
+  axios.get(apiUrl).then(sunriseTime);
+  axios.get(apiUrl).then(sunsetTime);
 }
 
 function retrievePosition(event) {
@@ -140,4 +176,4 @@ let iconElement = document.querySelector("#icon");
 let temperatureElement = document.querySelector("#temperature");
 let dateElement = document.querySelector("#date");
 
-searchCity("Queenstown");
+searchCity("Nelson");

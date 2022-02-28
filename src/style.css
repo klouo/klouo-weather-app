@@ -61,10 +61,10 @@ footer {
 #weather-type {
   text-transform: capitalize;
 }
-#current-highlow li {
+#sun li {
   display: inline;
-  padding-right: 48px;
-  padding-left: 26px;
+  padding-right: 10px;
+  padding-left: 5px;
 }
 .weather-forecast {
   margin-top: 20px;
@@ -73,7 +73,6 @@ footer {
 }
 .ahead-day {
   font-size: 16px;
-  opacity: 0.5;
 }
 .ahead-low {
   opacity: 0.5;
